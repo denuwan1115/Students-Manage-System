@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students Registered</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/contact.css">
+    <style>
+        body {
+            background-color: #2b4a36;
+            color: #fff2d3;
+            font-family: Arial, sans-serif;
+            background: #315e4a url('images/herobg22.jpg');
+            background-blend-mode: overlay;
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Students Registered</h2>
+        <table class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>SID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Near City</th>
+                    <th>Course</th>
+                    <th>Guardian</th>
+                    <th>Subjects</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="studentsTable">
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal for Editing Student -->
+    <div class="modal fade" id="editStudentModal" tabindex="-1" role="dialog" aria-labelledby="editStudentModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editStudentModalLabel">Edit Student</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editStudentForm">
+                        <div class="form-group">
+                            <label for="editSid">SID</label>
+                            <input type="text" class="form-control" id="editSid" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="editFirstName">First Name</label>
+                            <input type="text" class="form-control" id="editFirstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editLastName">Last Name</label>
+                            <input type="text" class="form-control" id="editLastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editEmail">Email</label>
+                            <input type="email" class="form-control" id="editEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editNearCity">Near City</label>
+                            <input type="text" class="form-control" id="editNearCity" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editCourse">Course</label>
+                            <input type="text" class="form-control" id="editCourse"
+                                placeholder="Separate by commas (e.g., Foundation, HND, Degree)" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editGuardian">Guardian</label>
+                            <input type="text" class="form-control" id="editGuardian" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editSubjects">Subjects</label>
+                            <input type="text" class="form-control" id="editSubjects"
+                                placeholder="Separate by commas (e.g., Math, Science)" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            function fetchStudents() {
+                $.ajax({
+                    url: 'php/viewStudents.php',
+                    method: 'GET',
+                    success: function (response) {
+                        let rows = '';
+                        response.students.forEach(student => {
+                            rows += `<tr>
+                                        <td>${student.SID}</td>
+                                        <td>${student.FirstName}</td>
+                                        <td>${student.LastName}</td>
+                                        <td>${student.Email}</td>
+                                        <td>${student.NearCity}</td>
+                                        <td>${student.Course.join(', ')}</td>
+                                        <td>${student.Guardian}</td>
+                                        <td>${student.Subjects.join(', ')}</td>
+                                        <td>
+                                            <button class="btn btn-warning btn-sm edit-btn" 
+                                                data-sid="${student.SID}" 
+                                                data-firstname="${student.FirstName}" 
+                                                data-lastname="${student.LastName}" 
+                                                data-email="${student.Email}" 
+                                                data-nearcity="${student.NearCity}" 
+                                                data-course="${student.Course.join(', ')}" 
+                                                data-guardian="${student.Guardian}" 
+                                                data-subjects="${student.Subjects.join(', ')}">Edit</button>
+                                            <button class="btn btn-danger btn-sm delete-btn" data-sid="${student.SID}">Delete</button>
+                                        </td>
+                                      </tr>`;
+                        });
+                        $('#studentsTable').html(rows);
+                    },
+                    error: function () {
+                        alert('Error fetching students.');
+                    }
+                });
+            }
+
+            $(document).on('click', '.delete-btn', function () {
+                let sid = $(this).data('sid');
+                if (confirm('Are you sure you want to delete this student?')) {
+                    $.ajax({
+                        url: 'php/deleteStudent.php',
+                        method: 'POST',
+                        data: { sid: sid },
+                        success: function (response) {
+                            alert("Student Deleted");
+                            fetchStudents(); // Reload student data
+                        },
+                        error: function () {
+                            alert("An error occurred while deleting the student.");
+                        }
+                    });
+                }
+            });
+
+            $(document).on('click', '.edit-btn', function () {
+                let sid = $(this).data('sid');
+                $('#editSid').val(sid);
+                $('#editFirstName').val($(this).data('firstname'));
+                $('#editLastName').val($(this).data('lastname'));
+                $('#editEmail').val($(this).data('email'));
+                $('#editNearCity').val($(this).data('nearcity'));
+                $('#editCourse').val($(this).data('course'));
+                $('#editGuardian').val($(this).data('guardian'));
+                $('#editSubjects').val($(this).data('subjects'));
+
+                $('#editStudentModal').modal('show');
+            });
+
+            $('#editStudentForm').on('submit', function (e) {
+                e.preventDefault();
+
+                let studentData = {
+                    sid: $('#editSid').val(),
+                    firstName: $('#editFirstName').val(),
+                    lastName: $('#editLastName').val(),
+                    email: $('#editEmail').val(),
+                    nearCity: $('#editNearCity').val(),
+                    course: $('#editCourse').val(),
+                    guardian: $('#editGuardian').val(),
+                    subjects: $('#editSubjects').val()
+                };
+
+                $.ajax({
+                    url: 'php/updateStudent.php',
+                    method: 'POST',
+                    data: studentData,
+                    success: function (response) {
+                        alert("Student Updated");
+                        $('#editStudentModal').modal('hide');
+                        fetchStudents(); // Reload student data
+                    },
+                    error: function () {
+                        alert("An error occurred while updating the student.");
+                    }
+                });
+            });
+
+            fetchStudents(); // Initial load
+        });
+    </script>
+</body>
+
+</html>

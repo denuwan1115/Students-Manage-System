@@ -1,0 +1,155 @@
+body {
+    background-color: rgb(255, 255, 255);
+    height: 100vh;
+}
+.navbar {
+    background-color: #E6E3B3;
+    position: relative;
+    z-index: 10;
+    padding: 4px 0.5px;
+    margin-top: 0.3%;
+
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand-image {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.navbar-brand-text {
+    color: #0e2e15;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.navbar-brand-text small {
+    font-size: 14px;
+    color: #0e2e15;
+}
+
+.nav-link {
+    color: #0e2e15 !important;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: #089b28 !important;
+}
+.btn{
+    position: relative;
+}
+.btn.custom-btn {
+    background-color: #0e2e15;
+    color: #E6E3B3;
+    padding: 10px 20px;
+    border-radius: 25px;
+}
+
+.btn.custom-btn:hover {
+    background-color: #a09c6d;
+    color: #0e2e15;
+}
+.auth-container {
+    max-width: 450px;
+    margin: auto;
+    margin-top: 90px;
+    margin-bottom: 50px;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.auth-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.auth-container .form-control {
+    margin-bottom: 15px;
+    
+}
+
+.btn-custom {
+    background-color: #28a745;
+    color: white;
+    width: 100%;
+}
+
+.btn-custom:hover {
+    background-color: #218838;
+}
+
+.highlight {
+    color: red;
+    font-weight: bold;
+}
+
+.forgot-password {
+    display: none;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.forgot-password a {
+    color: #6f42c1;
+}
+
+
+.btn-link {
+    text-decoration: none;
+    color: #0e2e15;
+}
+
+.changed-text {
+    font-style: italic;
+    color: green;
+}
+
+
+.footersvg svg {
+    margin-top: -120px;
+}
+
+footer p {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+footer {
+    margin-bottom: -200px;
+    margin-top: 1000px;
+    position: relative;
+    background-color: #183020;
+    color: #E6E3B3;
+    font-size: 1.2em;
+}
+
+
+.footersvg {
+    margin-top: 250px;
+    margin-bottom: -2050px;
+}
+.shape{
+    max-width: 100%;
+    padding: 0px 0px;
+    margin-top: -90px;
+}
+.loginf{
+    padding: 20px 50px;
+}
+.section-bg-image {
+    background-image: url('images/logbg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: -250px;
+    margin-top: -250px;
+    padding: 100px 200px;
+}

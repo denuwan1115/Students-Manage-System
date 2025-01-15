@@ -1,0 +1,50 @@
+[
+    {
+        "SID": "45645",
+        "FirstName": "Harith",
+        "LastName": "Malanbbbbb",
+        "Email": "dSDSDS@sgs",
+        "NearCity": "Kandy",
+        "Course": [
+            "Foundation",
+            "  HND"
+        ],
+        "Guardian": "James Cameron",
+        "Subjects": [
+            "ETF",
+            "  ORDBMS"
+        ]
+    },
+    {
+        "SID": "1001",
+        "FirstName": "Harry",
+        "LastName": "Styles",
+        "Email": "harry@gmail.com",
+        "NearCity": "Kandy",
+        "Course": [
+            "Foundation",
+            "HND"
+        ],
+        "Guardian": "James Cameron",
+        "Subjects": [
+            "ETF",
+            "ORDBMS"
+        ]
+    },
+    {
+        "SID": "123123",
+        "FirstName": "Akeshi",
+        "LastName": "Dewmini",
+        "Email": "akeshi@gmail.com",
+        "NearCity": "Ragama",
+        "Course": [
+            "HND",
+            "Degree"
+        ],
+        "Guardian": "snd",
+        "Subjects": [
+            "OOP",
+            "IP"
+        ]
+    }
+]
